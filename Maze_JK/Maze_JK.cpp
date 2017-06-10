@@ -2,10 +2,14 @@
 //
 
 #include "stdafx.h"
+#include <iostream>
 
+using namespace std;
 
 int main()
 {
+	cout << "witaj\n";
+
     return 0;
 }
 
