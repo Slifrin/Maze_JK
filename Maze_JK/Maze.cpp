@@ -14,8 +14,8 @@ Maze::~Maze()
 void Maze::info()
 {	
 	cout << "labirynt ma " << field.size() << " elementow \n";
-	cout << "WYmiary labirynti to " << width << " x " << length << "\n";
-	pair <int, int> test = start_end();
+	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
+	pair <int, int> test = find_start_end();
 	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
 }
 
@@ -111,7 +111,7 @@ int Maze::draw_star_or_end()
 	return position;
 }
 
-std::pair<int, int> Maze::start_end()
+std::pair<int, int> Maze::find_start_end()
 {
 	bool horizontal{ true };
 	int start{ -1 };
@@ -121,5 +121,8 @@ std::pair<int, int> Maze::start_end()
 		start = draw_star_or_end();
 		end = draw_star_or_end();
 	}
+
+	start_end.first = start;
+	start_end.second = end;
 	return { start, end };
 }
