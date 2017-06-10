@@ -17,10 +17,24 @@ void Maze::info()
 	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
 	pair <int, int> test = find_start_end();
 	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
+
+	int licznik = 1;
+	for (auto i: field)
+	{
+		cout << i.check_if_visited();
+		if (!(licznik % (width+2)))
+		{
+			cout << endl;
+		}
+		licznik++;
+	}
+	cout << endl;
 }
 
 void Maze::generate_maze()
 {
+	
+
 }
 
 void Maze::field_init()
@@ -40,6 +54,7 @@ void Maze::field_init()
 	}
 	std::vector<Patch> tmp((width + frame_sized) * (length + frame_sized));
 	field = move(tmp);
+	frame_init();
 }
 
 bool Maze::evaluate_length(int max_dimension)
@@ -72,6 +87,24 @@ bool Maze::evaluate_width(int max_dimension)
 	}	
 }
 
+void Maze::frame_init()
+{
+	const int v_distance = (width + 2) * (length + 1);
+	const int h_distance = width + 1;
+
+	for (int  i = 0; i <= width + 1; ++i)
+	{		
+		field[i].make_visited();
+		field[i + v_distance].make_visited();
+	}
+
+	for (int i = 1; i <= length + 1; ++i)
+	{
+		field[i*(width + 2)].make_visited();
+		field[i*(width + 2) + h_distance].make_visited();
+	}
+}
+
 bool Maze::draw_bool()
 {
 	random_device rseed;
@@ -93,19 +126,19 @@ int Maze::draw_star_or_end()
 	if (top_righ){
 		uniform_int_distribution<int> idist(1, width);
 		if (left_bottom){										//top
-			position = idist(rgen);
+			position = idist(rgen) + width + 2;
 		}
 		else{													//bottom
-			position = idist(rgen)+ (length+1) * (width +2);
+			position = idist(rgen)+ (length) * (width +2);
 		}
 	}
 	else{
 		uniform_int_distribution<int> idist(1, length);
 		if (left_bottom){										//left
-			position = idist(rgen)*(width + 2);
+			position = idist(rgen)*(width + 2) + 1;
 		}
 		else{													//right
-			position = (idist(rgen) + 1 ) * (width + 2) - 1;
+			position = (idist(rgen) + 1 ) * (width + 2) - 2;
 		}
 	}	
 	return position;
@@ -113,7 +146,6 @@ int Maze::draw_star_or_end()
 
 std::pair<int, int> Maze::find_start_end()
 {
-	bool horizontal{ true };
 	int start{ -1 };
 	int end{ -1 };
 

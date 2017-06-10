@@ -27,6 +27,7 @@ private:
 
 	bool evaluate_width(int max_dimension);
 	
+	void frame_init();
 
 	bool draw_bool();
 
