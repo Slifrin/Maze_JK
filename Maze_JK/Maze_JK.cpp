@@ -16,6 +16,19 @@ int main()
 	a.spr_wsk();
 	b.spr_wsk();
 
+	int c{10};	
+	c = sqrt( numeric_limits<int>::max());
+	cout << c << endl;
+	int d = 4;
+	int e{ 5 };
+
+	std::vector<int> tmp(d * e);
+	for (auto i : tmp) cout << i<<"\n";
+	cout << "#################\n";
+	std::vector<int> tmp2;
+	tmp2 = move(tmp);
+	for (auto i : tmp2) cout << i << "\n";
+
     return 0;
 }
 
