@@ -19,6 +19,7 @@ public:
 	int get_length();
 		
 	Patch& operator[](std::size_t idx);
+
 private:
 	//TODO dodac sprawdzanie rozmiaru
 	void field_init();

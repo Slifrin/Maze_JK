@@ -31,11 +31,11 @@ private:
 	//TODO zmienic nazwe draw_start_or_end
 	int draw_star_or_end();
 	// TODO void patch_position();
-	std::pair<int, int> find_start_end();
+	void find_start_end();
 	int width{ -1 };
 	int length{ -1 };
 	std::pair <int, int> start_end{ -1, -1 };
 
-	Board area;	
+	Board area{};
 };
 

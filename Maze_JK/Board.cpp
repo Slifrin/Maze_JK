@@ -19,9 +19,11 @@ void Board::info()
 	cout << "Wymiary planszy to " << width + frame_sized
 		<< " x " << length + frame_sized << "\n";
 
+	cout.width(2);
 	int licznik = 1;
 	for (auto i : field)
 	{
+		cout.width(4);
 		//cout << i.check_if_visited();
 		i.p_id();
 		if (!(licznik % (width + 2)))

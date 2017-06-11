@@ -31,9 +31,10 @@ public:
 	void spr_wsk();
 	//TODO enum direction 
 	void remove_wall(Direction to_remove);
-	void make_visited(int id);
+	void make_visited(int n_id);
 	bool check_if_visited();
 	void p_id();
+
 private:
 	bool is_visited{ false };
 	int id{ -1 };

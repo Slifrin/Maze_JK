@@ -6,6 +6,7 @@ Maze::Maze()
 {
 	width = area.get_width();
 	length = area.get_length();
+	find_start_end();
 }
 
 Maze::~Maze()
@@ -14,9 +15,8 @@ Maze::~Maze()
 
 void Maze::info()
 {	
-	area.info();
-	pair <int, int> test = find_start_end();
-	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
+	area.info();	
+	cout << "Poczatek " << start_end.first << " Koniec " << start_end.second << "\n\n";
 	/*cout << "labirynt ma " << area.size() << " elementow \n";
 	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
 	pair <int, int> test = find_start_end();
@@ -37,21 +37,25 @@ void Maze::info()
 
 void Maze::generate_maze()
 {
-	int current = start_end.first;
+	int current{ start_end.first };
+	int previous{ -1 };
 	int counter{ 1 };
 	stack<int> order{};
 	order.push(current);
 	Direction next_d{ Direction::none };
 
 	while (!order.empty())
-	{
-		area[current].make_visited(counter);
-		next_d = draw_direction(possible_moves(current));
-
-		if (next_d != Direction::none)
+	{		
+		if (!area[current].check_if_visited())
 		{
+			area[current].make_visited(counter);
+		}		
+		next_d = draw_direction(possible_moves(current));
+		if (next_d != Direction::none)
+		{		
 			area[current].remove_wall(next_d);
 			current = move_to(current, next_d);
+
 			next_d = reverse_dir(next_d);
 			area[current].remove_wall(next_d);
 			order.push(current);
@@ -59,8 +63,9 @@ void Maze::generate_maze()
 			counter++;
 		}
 		else
-		{
-			order.pop();
+		{			
+			current = order.top();
+			order.pop();								
 		}		
 	}
 }
@@ -146,7 +151,6 @@ int Maze::move_to(int current, Direction dir)
 	return n_position;
 }
 
-
 int Maze::draw_star_or_end()
 {
 	int position{ -1 };
@@ -177,7 +181,7 @@ int Maze::draw_star_or_end()
 	return position;
 }
 
-std::pair<int, int> Maze::find_start_end()
+void Maze::find_start_end()
 {
 	int start{ -1 };
 	int end{ -1 };
@@ -189,5 +193,4 @@ std::pair<int, int> Maze::find_start_end()
 
 	start_end.first = start;
 	start_end.second = end;
-	return { start, end };
 }

@@ -39,8 +39,9 @@ void Patch::remove_wall(Direction to_remove)
 	}
 }
 
-void Patch::make_visited(int id)
+void Patch::make_visited(int n_id)
 {
+	id = n_id;
 	is_visited = true;
 }
 
