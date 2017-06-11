@@ -37,8 +37,13 @@ void Maze::info()
 
 void Maze::generate_maze()
 {
-	
+	int current = start_end.first;
+	Patch current = area[start_end.first];
+	int counter{ 1 };
 
+	Direction possible = draw_direction(possible_moves(current));
+
+	
 }
 
 bool Maze::draw_bool()
@@ -48,6 +53,61 @@ bool Maze::draw_bool()
 	uniform_int_distribution<int> idist(0, 1);
 
 	return idist(rgen);
+}
+
+std::vector<Direction> Maze::possible_moves(int current_id)
+{
+	vector <Direction> directions{};
+	int top = current_id - width - 2;
+	int bottom = current_id + width + 2;
+	int left = current_id - 1;
+	int right = current_id + 1;
+
+	if (!area[top].check_if_visited())
+	{
+		directions.push_back(Direction::top);
+	}
+	if (!area[bottom].check_if_visited())
+	{
+		directions.push_back(Direction::bottom);
+	}
+	if (!area[left].check_if_visited())
+	{
+		directions.push_back(Direction::left);
+	}
+	if (!area[right].check_if_visited())
+	{
+		directions.push_back(Direction::right);
+	}
+	return directions;
+}
+
+Direction Maze::draw_direction(std::vector<Direction> possible_moves)
+{
+	int rozmiar{ -1 };
+	rozmiar = possible_moves.size();
+	if (rozmiar == 0)
+	{
+		return Direction::none;
+	}
+	else if (rozmiar == 1)
+	{
+		return possible_moves[0];
+	}
+	else
+	{
+		random_device rseed;
+		mt19937_64 rgen(rseed());
+		uniform_int_distribution<int> idist(0, rozmiar);
+
+		return possible_moves[idist(rgen) - 1];
+	}
+}
+
+int Maze::check_moves(Patch current, Direction turn)
+{
+	
+	return 0;
 }
 
 int Maze::draw_star_or_end()

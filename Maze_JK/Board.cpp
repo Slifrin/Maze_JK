@@ -16,7 +16,8 @@ Board::~Board()
 void Board::info()
 {
 	cout << "Plansza ma " << field.size() << " elementow \n";
-	cout << "WYmiary planszy to " << width << " x " << length << "\n";
+	cout << "Wymiary planszy to " << width + frame_sized
+		<< " x " << length + frame_sized << "\n";
 
 	int licznik = 1;
 	for (auto i : field)
@@ -39,6 +40,11 @@ int Board::get_width()
 int Board::get_length()
 {
 	return length;
+}
+
+Patch & Board::operator[](std::size_t idx)
+{
+	return field[idx];
 }
 
 void Board::field_init()

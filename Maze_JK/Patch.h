@@ -19,8 +19,9 @@ public:
 
 	//TODO do zmiany 
 	void spr_wsk();
-
-	void make_visited();
+	//TODO enum direction 
+	void remove_wall();
+	void make_visited(int id);
 	bool check_if_visited();
 private:
 	bool is_visited{ false };

@@ -6,6 +6,15 @@
 
 using namespace std;
 
+enum class Direction1 : int
+{
+	top = 1,
+	bottom = 2,
+	left = 3,
+	right = 4
+};
+
+
 int main()
 {
 	cout << "witaj\n";
@@ -14,6 +23,12 @@ int main()
 
 	Maze jeden{};
 	jeden.info();
+	jeden.generate_maze();
+
+	Direction1 b{};
+	cout << int(b) << endl;
+	b = Direction1::top;
+	cout << int(b) << endl;
 
 	/*for (int i = 0; i < 100; ++i)
 	{	

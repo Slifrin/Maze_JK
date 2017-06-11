@@ -17,7 +17,12 @@ void Patch::spr_wsk()
 	for (auto i : P_walls)cout << i.is_w_ther() << endl;
 }
 
-void Patch::make_visited()
+void Patch::remove_wall()
+{
+
+}
+
+void Patch::make_visited(int id)
 {
 	is_visited = true;
 }
