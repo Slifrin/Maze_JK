@@ -12,8 +12,8 @@ int main()
 	Patch a{  };
 	a.spr_wsk();
 
-	//Maze jeden{};
-	//jeden.info();
+	Maze jeden{};
+	jeden.info();
 
 	/*for (int i = 0; i < 100; ++i)
 	{	

@@ -22,7 +22,7 @@ void Maze::info()
 	for (auto i: field)
 	{
 		cout << i.check_if_visited();
-		if (!(licznik % (width+2)))
+		if (!(licznik % width))
 		{
 			cout << endl;
 		}
@@ -52,9 +52,9 @@ void Maze::field_init()
 		cout << "Podaj dlugosc labiryntu \n";
 		cin >> length;
 	}
-	std::vector<Patch> tmp((width + frame_sized) * (length + frame_sized));
+	std::vector<Patch> tmp(width * length);
 	field = move(tmp);
-	frame_init();
+	//frame_init();
 }
 
 bool Maze::evaluate_length(int max_dimension)
@@ -126,19 +126,19 @@ int Maze::draw_star_or_end()
 	if (top_righ){
 		uniform_int_distribution<int> idist(1, width);
 		if (left_bottom){										//top
-			position = idist(rgen) + width + 2;
+			position = idist(rgen);
 		}
 		else{													//bottom
-			position = idist(rgen)+ (length) * (width +2);
+			position =  (length) * (width) - idist(rgen);
 		}
 	}
 	else{
 		uniform_int_distribution<int> idist(1, length);
 		if (left_bottom){										//left
-			position = idist(rgen)*(width + 2) + 1;
+			position = idist(rgen)*(width);
 		}
 		else{													//right
-			position = (idist(rgen) + 1 ) * (width + 2) - 2;
+			position = idist(rgen)*(width + 1) -1;
 		}
 	}	
 	return position;
