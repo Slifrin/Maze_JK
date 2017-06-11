@@ -9,9 +9,11 @@ using namespace std;
 int main()
 {
 	cout << "witaj\n";
-	
-	Maze jeden{};
-	jeden.info();
+	Patch a{  };
+	a.spr_wsk();
+
+	//Maze jeden{};
+	//jeden.info();
 
 	/*for (int i = 0; i < 100; ++i)
 	{	

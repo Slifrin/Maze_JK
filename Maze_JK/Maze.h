@@ -31,12 +31,14 @@ private:
 
 	bool draw_bool();
 
+	//TODO zmienic nazwe draw_start_or_end
 	int draw_star_or_end();
 	// TODO void patch_position();
 	std::pair<int, int> find_start_end();
 
 	int width{ -1 };
 	int length{ -1 };
+	//TODO do usuniecia
 	int frame_sized{ 2 };
 	std::pair <int, int> start_end{ -1, -1 };
 	std::vector<Patch> field;

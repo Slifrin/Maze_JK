@@ -14,6 +14,7 @@ Patch::~Patch()
 void Patch::spr_wsk()
 {
 	if (previous == nullptr) cout << "zainicjowany nullptr\n";
+	for (auto i : P_walls)cout << i.is_w_ther() << endl;
 }
 
 void Patch::make_visited()
@@ -24,4 +25,15 @@ void Patch::make_visited()
 bool Patch::check_if_visited()
 {
 	return is_visited;
+}
+
+
+void wall::disappear()
+{
+	exist = false;
+}
+
+bool wall::is_w_ther()
+{
+	return exist;
 }
