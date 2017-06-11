@@ -21,7 +21,7 @@ public:
 
 private:
 	//TODO dodac sprawdzanie rozmiaru
-	void field_init();
+	void area_init();
 
 	bool evaluate_length(int max_dimension);
 
@@ -41,6 +41,7 @@ private:
 	//TODO do usuniecia
 	int frame_sized{ 2 };
 	std::pair <int, int> start_end{ -1, -1 };
-	std::vector<Patch> field;
+
+	std::vector<Patch> area;
 };
 

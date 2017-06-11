@@ -4,7 +4,7 @@ using namespace std;
 
 Maze::Maze()
 {
-	field_init();
+	area_init();
 }
 
 Maze::~Maze()
@@ -13,13 +13,13 @@ Maze::~Maze()
 
 void Maze::info()
 {	
-	cout << "labirynt ma " << field.size() << " elementow \n";
+	cout << "labirynt ma " << area.size() << " elementow \n";
 	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
 	pair <int, int> test = find_start_end();
 	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
 
 	int licznik = 1;
-	for (auto i: field)
+	for (auto i: area)
 	{
 		cout << i.check_if_visited();
 		if (!(licznik % width))
@@ -37,7 +37,7 @@ void Maze::generate_maze()
 
 }
 
-void Maze::field_init()
+void Maze::area_init()
 {
 	int max_dimension = sqrt(numeric_limits<int>::max()) - frame_sized;
 	cout << "Prosze podac rozmiar labiryntu \n";
@@ -53,8 +53,7 @@ void Maze::field_init()
 		cin >> length;
 	}
 	std::vector<Patch> tmp(width * length);
-	field = move(tmp);
-	//frame_init();
+	area = move(tmp);
 }
 
 bool Maze::evaluate_length(int max_dimension)
@@ -94,14 +93,14 @@ void Maze::frame_init()
 
 	for (int  i = 0; i <= width + 1; ++i)
 	{		
-		field[i].make_visited();
-		field[i + v_distance].make_visited();
+		area[i].make_visited();
+		area[i + v_distance].make_visited();
 	}
 
 	for (int i = 1; i <= length + 1; ++i)
 	{
-		field[i*(width + 2)].make_visited();
-		field[i*(width + 2) + h_distance].make_visited();
+		area[i*(width + 2)].make_visited();
+		area[i*(width + 2) + h_distance].make_visited();
 	}
 }
 
@@ -133,12 +132,12 @@ int Maze::draw_star_or_end()
 		}
 	}
 	else{
-		uniform_int_distribution<int> idist(1, length);
+		uniform_int_distribution<int> idist(0, length - 1);
 		if (left_bottom){										//left
 			position = idist(rgen)*(width);
 		}
 		else{													//right
-			position = idist(rgen)*(width + 1) -1;
+			position = idist(rgen)*(width + 1) - 1;
 		}
 	}	
 	return position;
