@@ -4,6 +4,7 @@ using namespace std;
 
 Board::Board()
 {
+	cout << "\nKonstruktro Board\n\n";
 	field_init();
 }
 
@@ -21,7 +22,7 @@ void Board::info()
 	for (auto i : field)
 	{
 		cout << i.check_if_visited();
-		if (!(licznik % width))
+		if (!(licznik % (width + 2)))
 		{
 			cout << endl;
 		}
@@ -30,9 +31,19 @@ void Board::info()
 	cout << endl;
 }
 
+int Board::get_width()
+{
+	return width;
+}
+
+int Board::get_length()
+{
+	return length;
+}
+
 void Board::field_init()
 {
-	int max_dimension = sqrt(numeric_limits<int>::max());
+	int max_dimension = sqrt(numeric_limits<int>::max()) - 2;
 	cout << "Prosze podac rozmiar labiryntu \n";
 
 	while (!evaluate_width(max_dimension))
@@ -45,8 +56,27 @@ void Board::field_init()
 		cout << "Podaj dlugosc labiryntu \n";
 		cin >> length;
 	}
-	std::vector<Patch> tmp(width * length);
+	std::vector<Patch> tmp((width + frame_sized) * (length + frame_sized));
 	field = move(tmp);
+	frame_init();
+}
+
+void Board::frame_init()
+{
+	const int v_distance = (width + 2) * (length + 1);
+	const int h_distance = width + 1;
+
+	for (int i = 0; i <= width + 1; ++i)
+	{
+		field[i].make_visited();
+		field[i + v_distance].make_visited();
+	}
+
+	for (int i = 1; i <= length + 1; ++i)
+	{
+		field[i*(width + 2)].make_visited();
+		field[i*(width + 2) + h_distance].make_visited();
+	}
 }
 
 bool Board::evaluate_length(int max_dimension)

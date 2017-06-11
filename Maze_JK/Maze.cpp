@@ -4,7 +4,8 @@ using namespace std;
 
 Maze::Maze()
 {
-	area_init();
+	width = area.get_width();
+	length = area.get_length();
 }
 
 Maze::~Maze()
@@ -13,7 +14,10 @@ Maze::~Maze()
 
 void Maze::info()
 {	
-	cout << "labirynt ma " << area.size() << " elementow \n";
+	area.info();
+	pair <int, int> test = find_start_end();
+	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
+	/*cout << "labirynt ma " << area.size() << " elementow \n";
 	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
 	pair <int, int> test = find_start_end();
 	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
@@ -28,80 +32,13 @@ void Maze::info()
 		}
 		licznik++;
 	}
-	cout << endl;
+	cout << endl;*/
 }
 
 void Maze::generate_maze()
 {
 	
 
-}
-
-void Maze::area_init()
-{
-	int max_dimension = sqrt(numeric_limits<int>::max()) - frame_sized;
-	cout << "Prosze podac rozmiar labiryntu \n";
-	
-	while (!evaluate_width(max_dimension))
-	{
-		cout << "Podaj szerokosc labiryntu \n";
-		cin >> width;
-	}
-	while (!evaluate_length(max_dimension))
-	{
-		cout << "Podaj dlugosc labiryntu \n";
-		cin >> length;
-	}
-	std::vector<Patch> tmp(width * length);
-	area = move(tmp);
-}
-
-bool Maze::evaluate_length(int max_dimension)
-{	
-	if (length <= 0){
-		cout << "Dlugosc labiryntu nie moze byc mniejsza od 1\n";
-		return false;
-	}
-	else if(max_dimension < length){
-		cout << "Labirynt jest za dlugi aby go wygenerowac\n";
-		return false;
-	}
-	else{
-		return true;
-	}	
-}
-
-bool Maze::evaluate_width(int max_dimension)
-{
-	if (width <= 0){
-		cout << "Szerokosc labiryntu nie moze byc mniejsza od 1\n";
-		return false;
-	}
-	else if (max_dimension < width){
-		cout << "Labirynt jest za szeroki aby go wygenerowac\n";
-		return false;
-	}
-	else {
-		return true;
-	}	
-}
-
-void Maze::frame_init()
-{
-	const int v_distance = (width + 2) * (length + 1);
-	const int h_distance = width + 1;
-
-	for (int  i = 0; i <= width + 1; ++i)
-	{		
-		area[i].make_visited();
-		area[i + v_distance].make_visited();
-	}
-
-	for (int i = 1; i <= length + 1; ++i)
-	{
-		area[i*(width + 2)].make_visited();
-		area[i*(width + 2) + h_distance].make_visited();
-	}
 }
 
 bool Maze::draw_bool()
@@ -122,24 +59,24 @@ int Maze::draw_star_or_end()
 	bool top_righ = draw_bool();
 	bool left_bottom = draw_bool();
 
-	if (top_righ){
+	if (top_righ) {
 		uniform_int_distribution<int> idist(1, width);
-		if (left_bottom){										//top
-			position = idist(rgen);
+		if (left_bottom) {										//top
+			position = idist(rgen) + width + 2;
 		}
-		else{													//bottom
-			position =  (length) * (width) - idist(rgen);
+		else {													//bottom
+			position = idist(rgen) + (length) * (width + 2);
 		}
 	}
-	else{
-		uniform_int_distribution<int> idist(0, length - 1);
-		if (left_bottom){										//left
-			position = idist(rgen)*(width);
+	else {
+		uniform_int_distribution<int> idist(1, length);
+		if (left_bottom) {										//left
+			position = idist(rgen)*(width + 2) + 1;
 		}
-		else{													//right
-			position = idist(rgen)*(width + 1) - 1;
+		else {													//right
+			position = (idist(rgen) + 1) * (width + 2) - 2;
 		}
-	}	
+	}
 	return position;
 }
 

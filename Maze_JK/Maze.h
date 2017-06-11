@@ -6,6 +6,7 @@
 #include <math.h>
 #include <utility>
 #include <random>
+#include "Board.h"
 #include "Patch.h"
 
 class Maze
@@ -20,15 +21,6 @@ public:
 	void generate_maze();
 
 private:
-	//TODO dodac sprawdzanie rozmiaru
-	void area_init();
-
-	bool evaluate_length(int max_dimension);
-
-	bool evaluate_width(int max_dimension);
-	
-	void frame_init();
-
 	bool draw_bool();
 
 	//TODO zmienic nazwe draw_start_or_end
@@ -38,10 +30,8 @@ private:
 
 	int width{ -1 };
 	int length{ -1 };
-	//TODO do usuniecia
-	int frame_sized{ 2 };
 	std::pair <int, int> start_end{ -1, -1 };
 
-	std::vector<Patch> area;
+	Board area;	
 };
 
