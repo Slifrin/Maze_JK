@@ -24,12 +24,23 @@ int main()
 	Maze jeden{};
 	jeden.info();
 	jeden.generate_maze();
+	jeden.info();
 
-	Direction1 b{};
-	cout << int(b) << endl;
-	b = Direction1::top;
-	cout << int(b) << endl;
+	/*int d{ 10 };
+	stack<int> spr{};
+	spr.push(d);
 
+	for (int i = 1; i <= 10; i++)
+	{
+		d += i;
+		spr.push(d);
+	}
+	while (!spr.empty())
+	{
+		cout << spr.top() << endl;
+		spr.pop();
+	}*/
+	
 	/*for (int i = 0; i < 100; ++i)
 	{	
 		cout << i << " : ";

@@ -22,7 +22,8 @@ void Board::info()
 	int licznik = 1;
 	for (auto i : field)
 	{
-		cout << i.check_if_visited();
+		//cout << i.check_if_visited();
+		i.p_id();
 		if (!(licznik % (width + 2)))
 		{
 			cout << endl;
@@ -74,14 +75,14 @@ void Board::frame_init()
 
 	for (int i = 0; i <= width + 1; ++i)
 	{
-		field[i].make_visited();
-		field[i + v_distance].make_visited();
+		field[i].make_visited(0);
+		field[i + v_distance].make_visited(0);
 	}
 
 	for (int i = 1; i <= length + 1; ++i)
 	{
-		field[i*(width + 2)].make_visited();
-		field[i*(width + 2) + h_distance].make_visited();
+		field[i*(width + 2)].make_visited(0);
+		field[i*(width + 2) + h_distance].make_visited(0);
 	}
 }
 

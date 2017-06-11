@@ -9,14 +9,6 @@
 #include "Board.h"
 #include "Patch.h"
 
-enum class Direction : int
-{
-	top = 0,
-	bottom = 1,
-	left = 2,
-	right = 3,
-	none = 4
-};
 
 
 class Maze
@@ -32,11 +24,9 @@ public:
 
 private:
 	bool draw_bool();
-
-	int check_moves(Patch current_id, Direction turn);
 	std::vector<Direction> possible_moves(int current);
 	Direction draw_direction(std::vector<Direction> possible_moves);
-
+	int move_to(int current, Direction dir);
 
 	//TODO zmienic nazwe draw_start_or_end
 	int draw_star_or_end();

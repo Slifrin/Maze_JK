@@ -2,10 +2,20 @@
 #include <iostream>
 #include <array>
 
+enum class Direction : int
+{
+	top = 0,
+	bottom = 1,
+	left = 2,
+	right = 3,
+	none = 4
+};
+
 struct wall
 {
 public:
 	void disappear();
+	void appear();
 	bool is_w_ther();
 private:
 	bool exist{ true };
@@ -20,9 +30,10 @@ public:
 	//TODO do zmiany 
 	void spr_wsk();
 	//TODO enum direction 
-	void remove_wall();
+	void remove_wall(Direction to_remove);
 	void make_visited(int id);
 	bool check_if_visited();
+	void p_id();
 private:
 	bool is_visited{ false };
 	int id{ -1 };
@@ -32,3 +43,4 @@ private:
 
 
 
+Direction reverse_dir(Direction current_dir);

@@ -38,12 +38,31 @@ void Maze::info()
 void Maze::generate_maze()
 {
 	int current = start_end.first;
-	Patch current = area[start_end.first];
 	int counter{ 1 };
+	stack<int> order{};
+	order.push(current);
+	Direction next_d{ Direction::none };
 
-	Direction possible = draw_direction(possible_moves(current));
+	while (!order.empty())
+	{
+		area[current].make_visited(counter);
+		next_d = draw_direction(possible_moves(current));
 
-	
+		if (next_d != Direction::none)
+		{
+			area[current].remove_wall(next_d);
+			current = move_to(current, next_d);
+			next_d = reverse_dir(next_d);
+			area[current].remove_wall(next_d);
+			order.push(current);
+			next_d = Direction::none;
+			counter++;
+		}
+		else
+		{
+			order.pop();
+		}		
+	}
 }
 
 bool Maze::draw_bool()
@@ -98,17 +117,35 @@ Direction Maze::draw_direction(std::vector<Direction> possible_moves)
 	{
 		random_device rseed;
 		mt19937_64 rgen(rseed());
-		uniform_int_distribution<int> idist(0, rozmiar);
+		uniform_int_distribution<int> idist(0, rozmiar - 1);
 
-		return possible_moves[idist(rgen) - 1];
+		return possible_moves[idist(rgen)];
 	}
 }
 
-int Maze::check_moves(Patch current, Direction turn)
+int Maze::move_to(int current, Direction dir)
 {
-	
-	return 0;
+	int n_position{ -1 };
+	switch (dir)
+	{
+	case Direction::top:
+		n_position = current - width - 2;
+		break;
+	case Direction::bottom:
+		n_position = current + width + 2;
+		break;
+	case Direction::left:
+		n_position = current - 1;
+		break;
+	case Direction::right:
+		n_position = current + 1;
+		break;
+	default:
+		break;
+	}
+	return n_position;
 }
+
 
 int Maze::draw_star_or_end()
 {
