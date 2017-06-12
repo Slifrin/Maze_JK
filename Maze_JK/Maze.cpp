@@ -63,51 +63,49 @@ void Maze::to_pgm_file()
 	unique_ptr<ofstream> myfile_p(new ofstream);
 	string name{ get_f_name() };
 	myfile_p->open(name);
+	const int retreat{ (2 * width + 1) * 2 + 1};
 	if (myfile_p->is_open())
 	{
 		//TODO exeption with vriting to file
 		string headline{ create_f_headline() };
 		*myfile_p << headline;
-		int max = (width + 2) * (length + 1) - 1;
 
 		for (int  m_line = 1; m_line <= length; m_line++)
 		{
 			const int max = (m_line + 1) * (width + 2) - 1;
-			for (int f_w_current = m_line * (width + 2) + 2;
-				f_w_current < max; f_w_current++)
+			for (int f_w_current = (m_line * (width + 2)) + 1; f_w_current < max; f_w_current++)
 			{
 				for (int col = 0; col < 3; col++)
 				{
 					*myfile_p << to_string(put_mark_top(f_w_current, col)) << " ";
 				}				
-				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+				if ((f_w_current + 1) != max) myfile_p->seekp(long(myfile_p->tellp()) - 2);
 			}
 			myfile_p->seekp(long(myfile_p->tellp()) - 1);
 			*myfile_p << "\n";
 
-			for (int f_w_current = m_line * (width + 2) + 2;
-				f_w_current < max; f_w_current++)
+			for (int f_w_current = (m_line * (width + 2)) + 1; f_w_current < max; f_w_current++)
 			{
 				for (int col = 0; col < 3; col++)
 				{
 					*myfile_p << to_string(put_mark_mid(f_w_current, col)) << " ";
 				}
-				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+				if ((f_w_current + 1) != max) myfile_p->seekp(long(myfile_p->tellp()) - 2);
 			}
 			myfile_p->seekp(long(myfile_p->tellp()) - 1);
 			*myfile_p << "\n";
 
-			for (int f_w_current = m_line * (width + 2) + 2;
-				f_w_current < max; f_w_current++)
+			for (int f_w_current = (m_line * (width + 2)) + 1; f_w_current < max; f_w_current++)
 			{
 				for (int col = 0; col < 3; col++)
 				{
 					*myfile_p << to_string(put_mark_bot(f_w_current, col)) << " ";
 				}
-				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+				if ((f_w_current + 1) != max) myfile_p->seekp(long(myfile_p->tellp()) - 2);
 			}
 			myfile_p->seekp(long(myfile_p->tellp()) - 1);
 			*myfile_p << "\n";
+			myfile_p->seekp(long(myfile_p->tellp()) - retreat);
 		}
 	}
 	else

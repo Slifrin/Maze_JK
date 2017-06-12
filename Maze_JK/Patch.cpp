@@ -60,7 +60,6 @@ bool Patch::is_wall_ther(Direction current_dir)
 	return P_walls[int(current_dir)].is_w_ther();
 }
 
-
 void wall::disappear()
 {
 	exist = false;
