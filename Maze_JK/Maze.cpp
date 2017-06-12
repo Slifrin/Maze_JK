@@ -17,22 +17,6 @@ void Maze::info()
 {	
 	area.info();	
 	cout << "Poczatek " << start_end.first << " Koniec " << start_end.second << "\n\n";
-	/*cout << "labirynt ma " << area.size() << " elementow \n";
-	cout << "WYmiary labiryntu to " << width << " x " << length << "\n";
-	pair <int, int> test = find_start_end();
-	cout << "Poczatek " << test.first << " Koniec " << test.second << "\n";
-
-	int licznik = 1;
-	for (auto i: area)
-	{
-		cout << i.check_if_visited();
-		if (!(licznik % width))
-		{
-			cout << endl;
-		}
-		licznik++;
-	}
-	cout << endl;*/
 }
 
 void Maze::generate_maze()
@@ -68,6 +52,25 @@ void Maze::generate_maze()
 			order.pop();								
 		}		
 	}
+}
+
+void Maze::to_pgm_file()
+{
+	unique_ptr<ofstream> myfile_p(new ofstream);
+	string name{};
+	name = get_f_name();
+	myfile_p->open(name);
+	if (myfile_p->is_open())
+	{
+		//TODO exeption with vriting to file
+		*myfile_p << create_f_headline();
+		
+	}
+	else
+	{
+		//TODO throw exeption informing file is not open (check docs)
+	}
+
 }
 
 bool Maze::draw_bool()
@@ -149,6 +152,44 @@ int Maze::move_to(int current, Direction dir)
 		break;
 	}
 	return n_position;
+}
+
+std::string Maze::get_f_name()
+{
+	string name{};	
+	cin.clear();
+	while (name=="")
+	{
+		cout << "Prosze podac nazwe pliku pod jaka ma byc zapisany\n";
+		getline(cin, name);
+		name.erase(remove_if(name.begin(),
+			name.end(),
+			[](char c)
+		{ return c == ',' || c == '.' || c == '<' || c == '>' || c == '"'; }),
+			name.end());
+	}
+	name += ".pgm";
+	cout << "zapisany zostanieplik o nazwie " << name << endl;
+	return name;
+}
+
+void Maze::save_to_f(std::unique_ptr<std::ofstream> myfile_p, std::string f_name)
+{
+
+}
+
+std::string Maze::create_f_headline()
+{
+	string headline{};
+	headline += "P2\n";
+	headline += "# ";
+	headline += "W pliku znajduje sie labirynt z jednym rozwi¹zaniem\n";
+	headline += to_string(2 * width - 1);
+	headline += " ";
+	headline += to_string(2 * length - 1);
+	headline += "\n255\n";
+
+	return headline;
 }
 
 int Maze::draw_star_or_end()

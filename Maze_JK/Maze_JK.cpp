@@ -26,6 +26,8 @@ int main()
 	jeden.generate_maze();
 	jeden.info();
 
+	jeden.to_pgm_file();
+
 	/*int d{ 10 };
 	stack<int> spr{};
 	spr.push(d);

@@ -2,7 +2,6 @@
 #include <cstddef>
 #include <iostream>
 #include <vector>
-#include <stack>
 #include <limits>
 #include <math.h>
 #include <utility>
