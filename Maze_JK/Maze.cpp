@@ -2,6 +2,10 @@
 
 using namespace std;
 
+const int whit = 9;
+const int black = 0;
+
+
 Maze::Maze()
 {
 	width = area.get_width();
@@ -57,14 +61,54 @@ void Maze::generate_maze()
 void Maze::to_pgm_file()
 {
 	unique_ptr<ofstream> myfile_p(new ofstream);
-	string name{};
-	name = get_f_name();
+	string name{ get_f_name() };
 	myfile_p->open(name);
 	if (myfile_p->is_open())
 	{
 		//TODO exeption with vriting to file
-		*myfile_p << create_f_headline();
-		
+		string headline{ create_f_headline() };
+		*myfile_p << headline;
+		int max = (width + 2) * (length + 1) - 1;
+
+		for (int  m_line = 1; m_line <= length; m_line++)
+		{
+			const int max = (m_line + 1) * (width + 2) - 1;
+			for (int f_w_current = m_line * (width + 2) + 2;
+				f_w_current < max; f_w_current++)
+			{
+				for (int col = 0; col < 3; col++)
+				{
+					*myfile_p << to_string(put_mark_top(f_w_current, col)) << " ";
+				}				
+				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+			}
+			myfile_p->seekp(long(myfile_p->tellp()) - 1);
+			*myfile_p << "\n";
+
+			for (int f_w_current = m_line * (width + 2) + 2;
+				f_w_current < max; f_w_current++)
+			{
+				for (int col = 0; col < 3; col++)
+				{
+					*myfile_p << to_string(put_mark_mid(f_w_current, col)) << " ";
+				}
+				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+			}
+			myfile_p->seekp(long(myfile_p->tellp()) - 1);
+			*myfile_p << "\n";
+
+			for (int f_w_current = m_line * (width + 2) + 2;
+				f_w_current < max; f_w_current++)
+			{
+				for (int col = 0; col < 3; col++)
+				{
+					*myfile_p << to_string(put_mark_bot(f_w_current, col)) << " ";
+				}
+				myfile_p->seekp(long(myfile_p->tellp()) - 2);
+			}
+			myfile_p->seekp(long(myfile_p->tellp()) - 1);
+			*myfile_p << "\n";
+		}
 	}
 	else
 	{
@@ -184,12 +228,97 @@ std::string Maze::create_f_headline()
 	headline += "P2\n";
 	headline += "# ";
 	headline += "W pliku znajduje sie labirynt z jednym rozwi¹zaniem\n";
-	headline += to_string(2 * width - 1);
+	headline += to_string(2 * width + 1);
 	headline += " ";
-	headline += to_string(2 * length - 1);
-	headline += "\n255\n";
+	headline += to_string(2 * length + 1);
+	headline += "\n9\n";
 
 	return headline;
+}
+
+int Maze::put_mark_top(int f_w_current,const int cloumn)
+{
+	int color{ whit };
+	switch (cloumn)
+	{
+	case 0:
+		if (area[f_w_current].is_wall_ther(Direction::top) ||
+			area[f_w_current].is_wall_ther(Direction::left))
+		{
+			color = black;
+		}
+		break;
+	case 1:
+		if (area[f_w_current].is_wall_ther(Direction::top))
+		{
+			color = black;
+		}
+		break;
+	case 2:
+		if (area[f_w_current].is_wall_ther(Direction::top) ||
+			area[f_w_current].is_wall_ther(Direction::right))
+		{
+			color = black;
+		}
+		break;
+	default:
+		break;
+	}
+	return color;
+}
+
+int Maze::put_mark_mid(int f_w_current, const int cloumn)
+{
+	int color{ whit };
+	switch (cloumn)
+	{
+	case 0:
+		if (area[f_w_current].is_wall_ther(Direction::left))
+		{
+			color = black;
+		}
+		break;
+	case 2:
+		if (area[f_w_current].is_wall_ther(Direction::right))
+		{
+			color = black;
+		}
+		break;
+	default:
+		break;
+	}
+	return color;
+}
+
+int Maze::put_mark_bot(int f_w_current, const int cloumn)
+{
+	int color{ whit };
+	switch (cloumn)
+	{
+	case 0:
+		if (area[f_w_current].is_wall_ther(Direction::bottom) ||
+			area[f_w_current].is_wall_ther(Direction::left))
+		{
+			color = black;
+		}
+		break;
+	case 1:
+		if (area[f_w_current].is_wall_ther(Direction::bottom))
+		{
+			color = black;
+		}
+		break;
+	case 2:
+		if (area[f_w_current].is_wall_ther(Direction::bottom) ||
+			area[f_w_current].is_wall_ther(Direction::right))
+		{
+			color = black;
+		}
+		break;
+	default:
+		break;
+	}
+	return color;
 }
 
 int Maze::draw_star_or_end()

@@ -34,6 +34,7 @@ public:
 	void make_visited(int n_id);
 	bool check_if_visited();
 	void p_id();
+	bool is_wall_ther(Direction current_dir);
 
 private:
 	bool is_visited{ false };

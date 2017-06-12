@@ -11,9 +11,13 @@
 #include <algorithm>
 #include <memory>
 #include "Board.h"
-#include "Patch.h"
 
-
+enum class row : int
+{
+	top = 1,
+	middle = 2,
+	bottom = 3
+};
 
 class Maze
 {
@@ -33,14 +37,16 @@ private:
 	int move_to(int current, Direction dir);
 	std::string get_f_name();
 
-
+	//TODO delete
 	void save_to_f(std::unique_ptr<std::ofstream> myfile_p,
 		std::string f_name);
 	std::string create_f_headline();
+	int put_mark_top(int f_w_current,const int cloumn);
+	int put_mark_mid(int f_w_current, const int cloumn);
+	int put_mark_bot(int f_w_current, const int cloumn);
 
 	//TODO zmienic nazwe draw_start_or_end
 	int draw_star_or_end();
-	// TODO void patch_position();
 	void find_start_end();
 	int width{ -1 };
 	int length{ -1 };
