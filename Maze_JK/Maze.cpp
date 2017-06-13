@@ -200,6 +200,8 @@ std::string Maze::get_f_name()
 {
 	string name{};	
 	cin.clear();
+	getline(cin, name);
+	//TODO naprawic wyswietlanie
 	while (name=="")
 	{
 		cout << "Prosze podac nazwe pliku pod jaka ma byc zapisany\n";
@@ -215,21 +217,23 @@ std::string Maze::get_f_name()
 	return name;
 }
 
-void Maze::save_to_f(std::unique_ptr<std::ofstream> myfile_p, std::string f_name)
-{
-
-}
-
 std::string Maze::create_f_headline()
 {
 	string headline{};
 	headline += "P2\n";
 	headline += "# ";
 	headline += "W pliku znajduje sie labirynt z jednym rozwi¹zaniem\n";
+	headline += "# Labirynt ma pocz¹tek w punkcie ";
+	headline += to_string(start_end.first);
+	headline += " a koniec w punkcie ";
+	headline += to_string(start_end.second);
+	headline += "\n";
 	headline += to_string(2 * width + 1);
 	headline += " ";
 	headline += to_string(2 * length + 1);
-	headline += "\n9\n";
+	headline += "\n";
+	headline += to_string(white);
+	headline += "\n";
 
 	return headline;
 }
@@ -244,6 +248,14 @@ int Maze::put_mark_top(int f_w_current,const int cloumn)
 			area[f_w_current].is_wall_ther(Direction::left))
 		{
 			color = black;
+		}
+		else
+		{
+			if (area[f_w_current - 1].is_wall_ther(Direction::top) ||
+				area[f_w_current - width - 2].is_wall_ther(Direction::left))
+			{
+				color = black;
+			}
 		}
 		break;
 	case 1:

@@ -27,7 +27,6 @@ public:
 
 	//TODO zmienic wyswietlane informacje
 	void info();
-	//TODO generowanie labiryntu
 	void generate_maze();
 	void to_pgm_file();
 private:
@@ -37,9 +36,6 @@ private:
 	int move_to(int current, Direction dir);
 	std::string get_f_name();
 
-	//TODO delete
-	void save_to_f(std::unique_ptr<std::ofstream> myfile_p,
-		std::string f_name);
 	std::string create_f_headline();
 	int put_mark_top(int f_w_current,const int cloumn);
 	int put_mark_mid(int f_w_current, const int cloumn);

@@ -90,8 +90,8 @@ void Board::frame_init()
 
 bool Board::evaluate_length(int max_dimension)
 {
-	if (length <= 0) {
-		cout << "Dlugosc labiryntu nie moze byc mniejsza od 1\n";
+	if (length <= min_dim) {
+		cout << "Dlugosc labiryntu nie moze byc mniejsza od 2\n";
 		return false;
 	}
 	else if (max_dimension < length) {
@@ -105,8 +105,8 @@ bool Board::evaluate_length(int max_dimension)
 
 bool Board::evaluate_width(int max_dimension)
 {
-	if (width <= 0) {
-		cout << "Szerokosc labiryntu nie moze byc mniejsza od 1\n";
+	if (width <= 1) {
+		cout << "Szerokosc labiryntu nie moze byc mniejsza od 2\n";
 		return false;
 	}
 	else if (max_dimension < width) {
