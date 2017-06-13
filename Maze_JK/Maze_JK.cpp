@@ -9,18 +9,18 @@ using namespace std;
 
 int main()
 {
-	cout << "witaj\n";
+	cout << "Witaj\n";
 
-	/*Maze jeden{};
-	jeden.info();
+	Maze jeden{};
 	jeden.generate_maze();
 	jeden.info();
+	jeden.to_pgm_file();
 
-	jeden.to_pgm_file();*/
+	cout << "\n\n ROZWIAZYWANIE \n\n";
 	M_solver testy{};
 	testy.load_f();
-	testy.info();
 	testy.solve();
+	testy.s_solution_to_f();
 
     return 0;
 }

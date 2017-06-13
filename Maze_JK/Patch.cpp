@@ -17,7 +17,6 @@ void Patch::spr_wsk()
 	for (auto i : P_walls)cout << i.is_w_ther() << endl;
 }
 
-
 void Patch::remove_wall(Direction to_remove)
 {
 	switch (to_remove)

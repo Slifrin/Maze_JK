@@ -20,7 +20,7 @@ Maze::~Maze()
 
 void Maze::info()
 {	
-	area.info();	
+	//area.info();	
 	cout << "Poczatek " << start_end.first << " Koniec " << start_end.second << "\n\n";
 }
 
@@ -214,7 +214,7 @@ std::string Maze::get_f_name()
 			name.end());
 	}
 	name += ".pgm";
-	cout << "zapisany zostanieplik o nazwie " << name << endl;
+	cout << "Zapisany zostanie plik o nazwie " << name << endl;
 	return name;
 }
 

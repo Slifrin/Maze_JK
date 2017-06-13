@@ -4,10 +4,9 @@ using namespace std;
 
 Board::Board()
 {
-	cout << "\nKonstruktro Board\n\n";
+	//cout << "\nKonstruktro Board\n\n";
 	field_init();
 }
-
 
 Board::~Board()
 {

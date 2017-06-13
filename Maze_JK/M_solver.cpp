@@ -23,19 +23,22 @@ void M_solver::load_f()
 		while ((bufor[0] == 'P' )||(bufor[0] == '#'))
 		{	
 			header += bufor;
+			header += "\n";
 			bufor.clear();			
 			getline(*myfile_p, bufor);						
 		}
 		header += bufor;
+		header += "\n";
 		get_w_and_l(bufor);
 		bufor.clear();
 		getline(*myfile_p, bufor);
 		get_white(bufor);
 		header += bufor;
+		header += "\n";
 		bufor.clear();
 
 		*myfile_p >> bufor;
-		//field.resize(lenght * width);
+		field.reserve(length * width);
 		while (!myfile_p->eof())
 		{			
 			field.push_back(stoi(bufor));
@@ -45,7 +48,7 @@ void M_solver::load_f()
 				{
 					start_end.first = field.size() - 1;
 				}
-				else if (field.back() == 1)
+				else if (field.back() == 1)	
 				{
 					start_end.second = field.size() - 1;
 				}
@@ -74,6 +77,26 @@ void M_solver::info()
 	cout << endl;
 }
 
+void M_solver::s_solution_to_f()
+{
+
+	unique_ptr<ofstream> myfile_p(new ofstream);
+	myfile_p->open(f_name);
+	int tmp{0};
+	if (myfile_p->good())
+	{
+		*myfile_p << header;
+		for (int i = 0; i < length; i++)
+		{
+			for (int j = 0; j < width; j++)
+			{
+				*myfile_p << to_string(field[i*width + j]) << " ";
+			}
+			*myfile_p << "\n";
+		}
+	}
+}
+
 std::string M_solver::get_f_name()
 {
 	string name{};
@@ -88,9 +111,11 @@ std::string M_solver::get_f_name()
 		{ return c == ',' || c == '.' || c == '<' || c == '>' || c == '"'; }),
 			name.end());
 	}
+	f_name = name;
+	f_name += "_rozwiazanie.pgm";
 	name += ".pgm";
 	cout << "Wczytany zostanie plik o nazwie " << name << endl;
-	f_name = name;
+
 	return name;
 }
 
@@ -157,8 +182,6 @@ void M_solver::solve()
 	}
 	pri_sta(trasa);	
 }
-
-
 
 std::vector<Direction> M_solver::possible_moves(Patch  current)
 {
@@ -265,7 +288,8 @@ void M_solver::pri_sta(std::stack<Patch> trasa)
 {
 	while (!trasa.empty())
 	{
-		cout << trasa.top().r_id() << endl;
+		field[trasa.top().r_id()] = 3;
+		//cout << trasa.top().r_id() << endl;
 		trasa.pop();
 	}
 }

@@ -21,12 +21,12 @@ public:
 
 	void load_f();
 	void info();
+	void s_solution_to_f();
 	void solve();
-private:
-	
+private:	
 	std::string get_f_name();
 	void get_w_and_l(std::string buf);
-	void get_white(std::string buf);
+	void get_white(std::string buf);	
 	
 	std::vector<Direction> possible_moves(Patch  current);
 	Direction draw_direction(std::vector<Direction> possible_moves);
