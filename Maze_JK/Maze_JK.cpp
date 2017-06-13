@@ -11,14 +11,15 @@ int main()
 {
 	cout << "witaj\n";
 
-	//Maze jeden{};
-	//jeden.info();
-	//jeden.generate_maze();
-	//jeden.info();
+	/*Maze jeden{};
+	jeden.info();
+	jeden.generate_maze();
+	jeden.info();
 
-	//jeden.to_pgm_file();
+	jeden.to_pgm_file();*/
 	M_solver testy{};
 	testy.load_f();
+	testy.info();
 
     return 0;
 }

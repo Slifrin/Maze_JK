@@ -16,15 +16,16 @@ public:
 	~M_solver();
 
 	void load_f();
+	void info();
 private:
 	
 	std::string get_f_name();
-	void get_start_end(std::string buf);
+	void get_w_and_l(std::string buf);
 	void get_white(std::string buf);
 
 	int white{ -1 };
 	int width{ -1 };
-	int lenght{ -1 };
+	int length{ -1 };
 	std::pair <int, int> start_end{ -1, -1 };
 	std::string header{};
 	std::vector<int> field;

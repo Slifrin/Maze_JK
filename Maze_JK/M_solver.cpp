@@ -27,24 +27,51 @@ void M_solver::load_f()
 			getline(*myfile_p, bufor);						
 		}
 		header += bufor;
-		get_start_end(bufor);
+		get_w_and_l(bufor);
 		bufor.clear();
 		getline(*myfile_p, bufor);
 		get_white(bufor);
 		header += bufor;
 		bufor.clear();
 
-		field.resize(lenght * width);
-		while (myfile_p->eof())
-		{
-			*myfile_p >> bufor;
+		*myfile_p >> bufor;
+		//field.resize(lenght * width);
+		while (!myfile_p->eof())
+		{			
 			field.push_back(stoi(bufor));
+			if (start_end.first == -1 || start_end.second == -1)
+			{
+				if (field.back() == white - 1)
+				{
+					start_end.first = field.size() - 1;
+				}
+				else if (field.back() == 1)
+				{
+					start_end.second = field.size() - 1;
+				}
+			}	
+			*myfile_p >> bufor;
 		}
+		cout << "Poczatek: " << start_end.first << " Koniec: " << start_end.second << endl;
 	}
 	else
 	{
 		//TODO throw exeption informing file is not good (check docs)
 	}
+	cout << width*length << " vs " << field.size() << endl;
+}
+
+void M_solver::info()
+{
+	for (int i = 0; i < length; i++)
+	{
+		cout << endl;
+		for (int j = 0; j < width; j++)
+		{
+			cout << field[j + (length*i)] << " ";
+		}
+	}
+	cout << endl;
 }
 
 std::string M_solver::get_f_name()
@@ -62,11 +89,11 @@ std::string M_solver::get_f_name()
 			name.end());
 	}
 	name += ".pgm";
-	cout << "Wczytany zostanieplik o nazwie " << name << endl;
+	cout << "Wczytany zostanie plik o nazwie " << name << endl;
 	return name;
 }
 
-void M_solver::get_start_end(std::string buf)
+void M_solver::get_w_and_l(std::string buf)
 {
 	string result{};
 	regex r("[[:digit:]]+");
@@ -77,21 +104,21 @@ void M_solver::get_start_end(std::string buf)
 		{
 			result = match.str(0);			
 			width = stoi(result);
-			lenght = stoi(result);
+			length = stoi(result);
 		}
 		else if (true)
 		{
 			result = match.str(0);
 			width = stoi(result);			
 			result = match.str(1);
-			lenght = stoi(result);			
+			length = stoi(result);
 		}			
 	}
 	else 
 	{
 		cout << "TARAPATY\n";
 	}
-	cout << "W: " << width << " L: " << lenght << endl;
+	cout << "W: " << width << " L: " << length << endl;
 
 }
 
