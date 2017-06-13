@@ -127,3 +127,125 @@ void M_solver::get_white(std::string buf)
 	white = stoi(buf);
 	cout << "Bialy: " << white << endl;
 }
+
+void M_solver::solve()
+{
+	stack<Patch> trasa{};
+	Patch current{};
+	current.make_visited(start_end.first);
+	trasa.push(current);
+
+
+
+	trasa.top().r_id();
+
+
+}
+
+Patch M_solver::visit(int next)
+{
+	return Patch();
+}
+
+std::vector<Direction> M_solver::possible_moves(int current_id)
+{
+	vector <Direction> directions{};
+	int top = current_id - width;
+	int bottom = current_id + width;
+	int left = current_id - 1;
+	int right = current_id + 1;
+
+	if (field[top])
+	{
+		directions.push_back(Direction::top);
+	}
+	if (field[bottom])
+	{
+		directions.push_back(Direction::bottom);
+	}
+	if (field[left])
+	{
+		directions.push_back(Direction::left);
+	}
+	if (field[right])
+	{
+		directions.push_back(Direction::right);
+	}
+	return directions;
+}
+
+Direction M_solver::draw_direction(std::vector<Direction> possible_moves)
+{
+	int rozmiar{ -1 };
+	rozmiar = possible_moves.size();
+	if (rozmiar == 0)
+	{
+		return Direction::none;
+	}
+	else if (rozmiar == 1)
+	{
+		return possible_moves[0];
+	}
+	else
+	{
+		random_device rseed;
+		mt19937_64 rgen(rseed());
+		uniform_int_distribution<int> idist(0, rozmiar - 1);
+
+		return possible_moves[idist(rgen)];
+	}
+}
+
+bool M_solver::is_move_posi(int id)
+{
+	bool decision{ false };
+	if (field[id])
+	{
+		decision = true;
+	}
+	else
+	{
+		decision = false;
+	}
+	return decision;
+}
+
+void M_solver::narrow_p(Patch current)
+{
+	//TODO zmienic na odwrotnosc !!!!!!!!
+	vector<Direction> moves = impossible_moves(current.r_id);
+	for (int i = 0; i < moves.size(); i++)
+	{
+		current.add_wall(moves[i]);
+	}
+
+
+
+}
+
+std::vector<Direction> M_solver::impossible_moves(int current_id)
+{
+	vector <Direction> directions{};
+	int top = current_id - width;
+	int bottom = current_id + width;
+	int left = current_id - 1;
+	int right = current_id + 1;
+
+	if (!field[top])
+	{
+		directions.push_back(Direction::top);
+	}
+	if (!field[bottom])
+	{
+		directions.push_back(Direction::bottom);
+	}
+	if (!field[left])
+	{
+		directions.push_back(Direction::left);
+	}
+	if (!field[right])
+	{
+		directions.push_back(Direction::right);
+	}
+	return directions
+}

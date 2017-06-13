@@ -79,6 +79,32 @@ bool Patch::is_wall_ther(Direction current_dir)
 	return wall_info;
 }
 
+int Patch::r_id()
+{
+	return id;
+}
+
+void Patch::add_wall(Direction to_add)
+{
+	switch (to_add)
+	{
+	case Direction::top:
+		P_walls[0].appear();
+		break;
+	case Direction::bottom:
+		P_walls[1].appear();
+		break;
+	case Direction::left:
+		P_walls[2].appear();
+		break;
+	case Direction::right:
+		P_walls[3].appear();
+		break;
+	default:
+		break;
+	}
+}
+
 void wall::disappear()
 {
 	exist = false;
