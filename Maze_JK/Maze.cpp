@@ -2,9 +2,10 @@
 
 using namespace std;
 
-const int white = 9;
-const int black = 0;
-
+const int white{ 3 };
+const int black{ 0 };
+const int color_of_start{ 2 };
+const int color_of_end{ 1 };
 
 Maze::Maze()
 {
@@ -107,6 +108,7 @@ void Maze::to_pgm_file()
 			*myfile_p << "\n";
 			myfile_p->seekp(long(myfile_p->tellp()) - retreat);
 		}
+
 	}
 	else
 	{
@@ -201,7 +203,6 @@ std::string Maze::get_f_name()
 	string name{};	
 	cin.clear();
 	getline(cin, name);
-	//TODO naprawic wyswietlanie
 	while (name=="")
 	{
 		cout << "Prosze podac nazwe pliku pod jaka ma byc zapisany\n";
@@ -287,6 +288,16 @@ int Maze::put_mark_mid(int f_w_current, const int cloumn)
 		{
 			color = black;
 		}
+		break;
+	case 1:
+		if (f_w_current == start_end.first)
+		{
+			color = color_of_start;
+		}
+		else if (f_w_current == start_end.second)
+		{
+			color = color_of_end;
+		}		
 		break;
 	case 2:
 		if (area[f_w_current].is_wall_ther(Direction::right))

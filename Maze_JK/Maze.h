@@ -24,8 +24,7 @@ class Maze
 public:
 	Maze();
 	~Maze();
-
-	//TODO zmienic wyswietlane informacje
+	
 	void info();
 	void generate_maze();
 	void to_pgm_file();

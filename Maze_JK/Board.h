@@ -21,7 +21,6 @@ public:
 
 private:
 	//TODO dodac sprawdzanie rozmiaru
-	//TODO zmienic minimalny rozmiar labiryntu na 2
 	void field_init();
 	void frame_init();
 	bool evaluate_length(int max_dimension);

@@ -1,14 +1,14 @@
 P2
 # W pliku znajduje sie labirynt z jednym rozwi¹zaniem
-# Labirynt ma pocz¹tek w punkcie 26 a koniec w punkcie 8
+# Labirynt ma pocz¹tek w punkcie 15 a koniec w punkcie 26
 11 9
-9
+3
 0 0 0 0 0 0 0 0 0 0 0
-0 9 9 9 0 9 9 9 9 9 0
-0 0 0 9 0 9 0 0 0 9 0
-0 9 9 9 0 9 0 9 9 9 0
-0 9 0 0 0 9 0 9 0 0 0
-0 9 9 9 0 9 0 9 0 9 0
-0 9 0 9 0 9 0 9 0 9 0
-0 9 0 9 9 9 0 9 9 9 0
+0 3 3 3 3 3 3 3 0 3 0
+0 0 0 3 0 3 0 3 0 3 0
+0 2 0 3 0 3 0 3 3 3 0
+0 3 0 0 0 3 0 0 0 3 0
+0 3 3 3 0 3 3 3 0 1 0
+0 0 0 3 0 0 0 3 0 3 0
+0 3 3 3 3 3 3 3 0 3 0
 0 0 0 0 0 0 0 0 0 0 0
