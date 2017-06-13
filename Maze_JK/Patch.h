@@ -38,6 +38,7 @@ public:
 	int r_id();
 	void add_wall(Direction to_add);
 
+
 private:
 	bool is_visited{ false };
 	int id{ -1 };

@@ -90,6 +90,7 @@ std::string M_solver::get_f_name()
 	}
 	name += ".pgm";
 	cout << "Wczytany zostanie plik o nazwie " << name << endl;
+	f_name = name;
 	return name;
 }
 
@@ -131,43 +132,50 @@ void M_solver::get_white(std::string buf)
 void M_solver::solve()
 {
 	stack<Patch> trasa{};
-	Patch current{};
-	current.make_visited(start_end.first);
-	trasa.push(current);
+	vector<Direction> moves{};
 
-
-
-	trasa.top().r_id();
-
-
+	int id = start_end.first;
+	trasa.push(preaper_patch(id));
+	while (id != start_end.second )
+	{
+		Direction dir{ Direction::none };
+		moves = possible_moves(trasa.top());
+		dir = draw_direction(moves);
+		if (dir == Direction::none)
+		{
+			trasa.pop();
+			id = trasa.top().r_id();
+		}
+		else
+		{
+			trasa.top().add_wall(dir);
+			id += go_next(dir);
+			trasa.push(preaper_patch(id));
+			dir = reverse_dir(dir);
+			trasa.top().add_wall(dir);
+		}		
+	}
+	pri_sta(trasa);	
 }
 
-Patch M_solver::visit(int next)
-{
-	return Patch();
-}
 
-std::vector<Direction> M_solver::possible_moves(int current_id)
+
+std::vector<Direction> M_solver::possible_moves(Patch  current)
 {
 	vector <Direction> directions{};
-	int top = current_id - width;
-	int bottom = current_id + width;
-	int left = current_id - 1;
-	int right = current_id + 1;
-
-	if (field[top])
+	if (!current.is_wall_ther(Direction::top))
 	{
 		directions.push_back(Direction::top);
 	}
-	if (field[bottom])
+	if (!current.is_wall_ther(Direction::bottom))
 	{
 		directions.push_back(Direction::bottom);
 	}
-	if (field[left])
+	if (!current.is_wall_ther(Direction::left))
 	{
 		directions.push_back(Direction::left);
 	}
-	if (field[right])
+	if (!current.is_wall_ther(Direction::right))
 	{
 		directions.push_back(Direction::right);
 	}
@@ -196,56 +204,68 @@ Direction M_solver::draw_direction(std::vector<Direction> possible_moves)
 	}
 }
 
-bool M_solver::is_move_posi(int id)
+Patch M_solver::preaper_patch(int current_id)
 {
-	bool decision{ false };
-	if (field[id])
-	{
-		decision = true;
-	}
-	else
-	{
-		decision = false;
-	}
-	return decision;
-}
+	Patch current{};
+	current.make_visited(current_id);
 
-void M_solver::narrow_p(Patch current)
-{
-	//TODO zmienic na odwrotnosc !!!!!!!!
-	vector<Direction> moves = impossible_moves(current.r_id);
-	for (int i = 0; i < moves.size(); i++)
-	{
-		current.add_wall(moves[i]);
-	}
-
-
-
-}
-
-std::vector<Direction> M_solver::impossible_moves(int current_id)
-{
 	vector <Direction> directions{};
 	int top = current_id - width;
 	int bottom = current_id + width;
 	int left = current_id - 1;
 	int right = current_id + 1;
 
-	if (!field[top])
+	if (field[top])
 	{
 		directions.push_back(Direction::top);
 	}
-	if (!field[bottom])
+	if (field[bottom])
 	{
 		directions.push_back(Direction::bottom);
 	}
-	if (!field[left])
+	if (field[left])
 	{
 		directions.push_back(Direction::left);
 	}
-	if (!field[right])
+	if (field[right])
 	{
 		directions.push_back(Direction::right);
+	}	
+	for (int i = 0; i < directions.size(); i++)
+	{
+		current.remove_wall(directions[i]);
 	}
-	return directions
+	return current;
+}
+
+int M_solver::go_next(Direction nex_dir)
+{
+	int chnage{ 0 };
+	switch (nex_dir)
+	{
+	case Direction::top:
+		chnage = - width;
+		break;
+	case Direction::bottom:
+		chnage = width;
+		break;
+	case Direction::left:
+		chnage = -1;
+		break;
+	case Direction::right:
+		chnage = 1;
+		break;
+	default:
+		break;
+	}
+	return chnage;
+}
+
+void M_solver::pri_sta(std::stack<Patch> trasa)
+{
+	while (!trasa.empty())
+	{
+		cout << trasa.top().r_id() << endl;
+		trasa.pop();
+	}
 }

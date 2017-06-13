@@ -21,18 +21,19 @@ public:
 
 	void load_f();
 	void info();
+	void solve();
 private:
 	
 	std::string get_f_name();
 	void get_w_and_l(std::string buf);
 	void get_white(std::string buf);
-	void solve();
-	Patch visit(int next);
-	std::vector<Direction> possible_moves(int current_id);
+	
+	std::vector<Direction> possible_moves(Patch  current);
 	Direction draw_direction(std::vector<Direction> possible_moves);
-	bool is_move_posi(int id);
-	void narrow_p(Patch current);
-	std::vector<Direction> impossible_moves(int current_id);
+
+	Patch preaper_patch(int current_id);
+	int go_next(Direction nex_dir);
+	void pri_sta(std::stack<Patch> trasa);
 
 	int white{ -1 };
 	int width{ -1 };
@@ -40,5 +41,6 @@ private:
 	std::pair <int, int> start_end{ -1, -1 };
 	std::string header{};
 	std::vector<int> field;
+	std::string f_name{};
 };
 

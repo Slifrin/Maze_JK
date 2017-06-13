@@ -20,6 +20,7 @@ int main()
 	M_solver testy{};
 	testy.load_f();
 	testy.info();
+	testy.solve();
 
     return 0;
 }
