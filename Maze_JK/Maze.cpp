@@ -2,9 +2,9 @@
 
 using namespace std;
 
-const int white{ 3 };
+const int white{ 4 };
 const int black{ 0 };
-const int color_of_start{ 2 };
+const int color_of_start{ 3 };
 const int color_of_end{ 1 };
 
 Maze::Maze()
@@ -65,7 +65,7 @@ void Maze::to_pgm_file()
 	string name{ get_f_name() };
 	myfile_p->open(name);
 	const int retreat{ (2 * width + 1) * 2 + 1};
-	if (myfile_p->is_open())
+	if (myfile_p->good())//TODO sprawdziæ to w odniesieniu domyfile_p->is_open() 
 	{
 		//TODO exeption with vriting to file
 		string headline{ create_f_headline() };

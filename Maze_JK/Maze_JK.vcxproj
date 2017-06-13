@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Maze.h" />
+    <ClInclude Include="M_solver.h" />
     <ClInclude Include="Patch.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Maze_JK.cpp" />
+    <ClCompile Include="M_solver.cpp" />
     <ClCompile Include="Patch.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
