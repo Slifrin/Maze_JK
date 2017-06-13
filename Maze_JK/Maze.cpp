@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int whit = 9;
+const int white = 9;
 const int black = 0;
 
 
@@ -236,7 +236,7 @@ std::string Maze::create_f_headline()
 
 int Maze::put_mark_top(int f_w_current,const int cloumn)
 {
-	int color{ whit };
+	int color{ white };
 	switch (cloumn)
 	{
 	case 0:
@@ -267,7 +267,7 @@ int Maze::put_mark_top(int f_w_current,const int cloumn)
 
 int Maze::put_mark_mid(int f_w_current, const int cloumn)
 {
-	int color{ whit };
+	int color{ white };
 	switch (cloumn)
 	{
 	case 0:
@@ -290,12 +290,13 @@ int Maze::put_mark_mid(int f_w_current, const int cloumn)
 
 int Maze::put_mark_bot(int f_w_current, const int cloumn)
 {
-	int color{ whit };
+	int color{ white };
 	switch (cloumn)
 	{
 	case 0:
-		if (area[f_w_current].is_wall_ther(Direction::bottom) ||
-			area[f_w_current].is_wall_ther(Direction::left))
+		if (area[f_w_current].is_wall_ther(Direction::left) ||
+			area[f_w_current].is_wall_ther(Direction::bottom) )
+			
 		{
 			color = black;
 		}
@@ -307,8 +308,8 @@ int Maze::put_mark_bot(int f_w_current, const int cloumn)
 		}
 		break;
 	case 2:
-		if (area[f_w_current].is_wall_ther(Direction::bottom) ||
-			area[f_w_current].is_wall_ther(Direction::right))
+		if (area[f_w_current].is_wall_ther(Direction::right) ||
+			area[f_w_current].is_wall_ther(Direction::bottom))			
 		{
 			color = black;
 		}

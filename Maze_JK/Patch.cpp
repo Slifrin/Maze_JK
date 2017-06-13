@@ -57,7 +57,26 @@ void Patch::p_id()
 
 bool Patch::is_wall_ther(Direction current_dir)
 {
-	return P_walls[int(current_dir)].is_w_ther();
+	//return P_walls[int(current_dir)].is_w_ther();
+	bool wall_info{ false };
+	switch (current_dir)
+	{
+	case Direction::top:
+		wall_info = P_walls[0].is_w_ther();
+		break;
+	case Direction::bottom:
+		wall_info = P_walls[1].is_w_ther();
+		break;
+	case Direction::left:
+		wall_info = P_walls[2].is_w_ther();
+		break;
+	case Direction::right:
+		wall_info = P_walls[3].is_w_ther();
+		break;
+	default:
+		break;
+	}
+	return wall_info;
 }
 
 void wall::disappear()
@@ -95,6 +114,5 @@ Direction reverse_dir(Direction current_dir)
 	default:
 		break;
 	}
-
 	return r_dir;
 }

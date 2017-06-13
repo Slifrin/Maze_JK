@@ -53,7 +53,7 @@ int main()
 	bool test = idist2(rgen);
 	cout << test << endl;
 	}*/
-
+	cout << "";
     return 0;
 }
 
